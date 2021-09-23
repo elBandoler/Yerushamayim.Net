@@ -6,12 +6,21 @@ namespace Yerushamayim.Net
     {
         [JsonPropertyName("time")]
         public string Time { get; set; }
+        /// <summary>
+        /// The actual temperature ("on the mountain")
+        /// </summary>
         [JsonPropertyName("temp")]
         public double Temp { get; set; }
+        /// <summary>
+        /// What temperature it feels like ("in the valley")
+        /// </summary>
         [JsonPropertyName("temp2")]
-        public string Temp2 { get; set; }
+        public string TempFeelsLike { get; set; }
+        /// <summary>
+        /// the Temperature on the road
+        /// </summary>
         [JsonPropertyName("temp3")]
-        public string Temp3 { get; set; }
+        public string TempOnRoad { get; set; }
         [JsonPropertyName("hum")]
         public string Humidity { get; set; }
         [JsonPropertyName("pressure")]
