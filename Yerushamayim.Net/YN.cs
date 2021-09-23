@@ -21,7 +21,7 @@ namespace Yerushamayim.Net
         /// <summary>
         /// Allows the developer to set the app's temperature unit to either Celsius (default) or Farenheit
         /// </summary>
-        public static void SetDegreeUnit(TemperatureUnit temperatureUnit)
+        public static void SetTemperatureUnit(TemperatureUnit temperatureUnit)
             => TemperatureUnit = temperatureUnit;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Yerushamayim.Net
         {
             string query = $"{APIEndpoint}/now/0/1/{TemperatureUnit}/1";
             // The following is not an elegant solution, but it is practical, since the 02ws API returns a malformed Json.
-            string json = $"[{{{(await Query(query)).Replace('[',' ').Replace(']',' ').Replace('{',' ').Replace('}',' ')}}}]";
+            string json = $"[{{{(await QueryAsync(query)).Replace('[',' ').Replace(']',' ').Replace('{',' ').Replace('}',' ')}}}]";
             return JsonSerializer.Deserialize<WeatherData[]>(json)[0];
         }
 
@@ -41,27 +41,27 @@ namespace Yerushamayim.Net
         /// </summary>
         /// <param name="day">A ForecastDay value</param>
         /// <returns>A ForecastData object, or null.</returns>
-        public static ForecastData GetForecastForDay(ForecastDay day)
+        public static async Task<ForecastData> GetForecastForDayAsync(ForecastDay day)
         {
             string query = $"{APIEndpoint}/forecast/{day}/1/{TemperatureUnit}/1";
-            return JsonSerializer.Deserialize<ForecastData>(Query(query).Result);
+            return JsonSerializer.Deserialize<ForecastData>(await QueryAsync(query));
         }
 
         /// <summary>
         /// Gets the forecast for all available days
         /// </summary>
         /// <returns>An ICollection of ForecastData objects</returns>
-        public static ICollection<ForecastData> GetFullForecast()
+        public static async Task<ICollection<ForecastData>> GetFullForecastAsync()
         {
             string query = $"{APIEndpoint}/forecast/0/1/{TemperatureUnit}/1";
-            return JsonSerializer.Deserialize<ICollection<ForecastData>>(Query(query).Result);
+            return JsonSerializer.Deserialize<ICollection<ForecastData>>(await QueryAsync(query));
         }
 
         /// <summary>
         /// Executes the query and returns its result
         /// </summary>
         /// <returns>The result as a string</returns>
-        private static async Task<string> Query(string query)
+        private static async Task<string> QueryAsync(string query)
         {
             using (HttpClient httpClient = new HttpClient())
             {
