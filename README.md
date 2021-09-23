@@ -1,6 +1,6 @@
 # 🌤 Yerushamayim.Net
 Yerushamayim.Net is a wrapper library for the 02ws (ירושמיים) API.<br>
-**Disclaimer:** This wrapper is **in no way** related to or endorsed by 02ws, nor was it made by them or anyone related to them.<br>
+**Disclaimer:** This wrapper is **in no way** related to or endorsed by <a href="https://02ws.co.il">02ws</a>, nor was it made by them or anyone related to them.<br>
 It is **only** meant to allow simpler access to their API for C# developers.<br>
 All of the data gathered using this wrapper is owned by its respective owners, using APIs the owner made available to the public.
 
